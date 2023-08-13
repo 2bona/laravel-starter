@@ -10,12 +10,15 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
+    protected $commands = [
+        Commands\updateAWSEveryHour::class,
+    ];
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
-
+        $schedule->command('app:updateaws')->everyMinute();
         // Backup Cleanup
-        $schedule->command('backup:clean')->daily()->at('01:00');
+        // $schedule->command('backup:clean')->daily()->at('01:00');
     }
 
     /**
