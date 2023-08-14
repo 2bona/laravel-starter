@@ -26,28 +26,30 @@ class updateAWSEveryHour extends Command
      */
     public function handle()
     {
-        Log::info('AWS AMI Marketplace Metering API Hourly: ' . time());
-        // $meteringClient = new MarketplaceMeteringClient([
-        //     'version' => '2016-01-14',
-        //     'region' => 'us-east-1',
-        //     'credentials' => [
-        //         'key' => 'YOUR_AWS_ACCESS_KEY_ID',
-        //         'secret' => 'YOUR_AWS_SECRET_ACCESS_KEY',
-        //     ],
-        // ]);
+        $meteringClient = new MarketplaceMeteringClient([
+            'version' => '2016-01-14',
+            'region' => 'us-east-1',
+            'credentials' => [
+                'key' => 'YOUR_AWS_ACCESS_KEY_ID',
+                'secret' => 'YOUR_AWS_SECRET_ACCESS_KEY',
+            ],
+        ]);
+        // Product ID
+        // prod-tr3kxgsjrubra
+        // Product code
+        // 7ltpmjexhtohrhno3ewb8p30k
+        $productCode = 'YOUR_PRODUCT_CODE';
+        $usageDimension = 'YOUR_USAGE_DIMENSION';
+        $timestamp = time();
+        $quantity = 1;
 
-        // $productCode = 'YOUR_PRODUCT_CODE';
-        // $usageDimension = 'YOUR_USAGE_DIMENSION';
-        // $timestamp = time();
-        // $quantity = 1;
+        $result = $meteringClient->meterUsage([
+            'ProductCode' => $productCode,
+            'Timestamp' => $timestamp,
+            'UsageDimension' => $usageDimension,
+            'UsageQuantity' => $quantity,
+        ]);
 
-        // $result = $meteringClient->meterUsage([
-        //     'ProductCode' => $productCode,
-        //     'Timestamp' => $timestamp,
-        //     'UsageDimension' => $usageDimension,
-        //     'UsageQuantity' => $quantity,
-        // ]);
-
-        // Log::info("AWS AMI Marketplace Metering API Hourly: " . $result['MeteringRecordId']);
+        Log::info("AWS AMI Marketplace Metering API Hourly: " . $result['MeteringRecordId']);
     }
 }

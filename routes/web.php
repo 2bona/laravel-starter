@@ -27,6 +27,8 @@ Route::get('dashboard', 'App\Http\Controllers\Frontend\FrontendController@index'
 *
 * --------------------------------------------------------------------
 */
+Route::get('/verify-ami', 'AmiVerificationController@verify');
+
 Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.'], function () {
     Route::get('/', 'FrontendController@index')->name('index');
     Route::get('home', 'FrontendController@index')->name('home');
